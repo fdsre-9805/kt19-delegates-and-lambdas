@@ -1,25 +1,15 @@
-List<int> numbers = InputReader.ReadNumbers();
+using System;
+using System.Collections.Generic;
+using NumberProcessingApp.Processing;
 
-Func<int, bool> isEven = number => number % 2 == 0;
-Func<int, int> square = number => number * number;
-
-List<int> savedResults = new List<int>();
-Action<int> printResult = result => Console.WriteLine($"Результат: {result}");
-Action<int> saveResult = result => savedResults.Add(result);
-
-Action<int> handleResult = printResult;
-handleResult += saveResult;
-
-foreach (int number in numbers)
+namespace NumberProcessingApp
 {
-    if (isEven(number))
+    class Program
     {
-        handleResult(square(number));
+        static void Main()
+        {
+            List<int> numbers = NumberProcessor.ReadNumbers();
+            NumberProcessor.Process(numbers);
+        }
     }
-}
-
-Console.WriteLine("Сохранено:");
-foreach (int savedResult in savedResults)
-{
-    Console.WriteLine(savedResult);
 }
