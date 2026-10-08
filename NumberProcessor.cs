@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace NumberProcessingApp.Processing
+namespace NumberProcessingApp
 {
     static class NumberProcessor
     {
@@ -12,16 +12,20 @@ namespace NumberProcessingApp.Processing
         {
             List<int> numbers = new List<int>();
 
-            Console.WriteLine("Вводите целые числа по одному. Пустая строка — конец ввода.");
-            string input = Console.ReadLine()!;
-            while (input != "")
+            Console.WriteLine("Вводите целые числа по одному.");
+            while (true)
             {
-                if (!int.TryParse(input, out int enteredNumber))
-                    Console.WriteLine("Ошибка: введите целое число.");
-                else
-                    numbers.Add(enteredNumber);
+                string input = Console.ReadLine()!;
+                if (input == "") break;
 
-                input = Console.ReadLine()!;
+                try
+                {
+                    numbers.Add(int.Parse(input));
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Ошибка: введите целое число.");
+                }
             }
 
             return numbers;
