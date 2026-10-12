@@ -5,27 +5,27 @@ namespace NumberProcessingApp
 {
     static class NumberProcessor
     {
-        static Func<int, bool> isEven = number => number % 2 == 0;
-        static Func<int, int> square = number => number * number;
-
         public static List<int> ReadNumbers()
         {
             List<int> numbers = new List<int>();
-
             Console.WriteLine("Вводите целые числа по одному.");
             while (true)
             {
                 string input = Console.ReadLine()!;
                 if (input == "") break;
-
                 try
                 {
-                    numbers.Add(int.Parse(input));
+                    int enteredNumber = int.Parse(input);
+                    if (enteredNumber > 10000)
+                        Console.WriteLine("Ошибка: число не должно быть больше 10000.");
+                    else
+                        numbers.Add(enteredNumber);
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Ошибка: введите целое число.");
                 }
+                
             }
 
             return numbers;
@@ -33,12 +33,15 @@ namespace NumberProcessingApp
 
         public static void Process(List<int> numbers)
         {
+            Func<int, bool> isEven = number => number % 2 == 0;
+            Func<int, int> square = number => number * number;
+            
             List<int> savedResults = new List<int>();
-            Action<int> printResult = result => Console.WriteLine($"Результат: {result}");
-            Action<int> saveResult = result => savedResults.Add(result);
-
-            Action<int> handleResult = printResult;
-            handleResult += saveResult;
+            Action<int> handleResult = result =>
+            {
+                Console.WriteLine($"Результат четного числа в квадрате : {result}");
+                savedResults.Add(result);
+            };
 
             foreach (int number in numbers)
                 if (isEven(number))
