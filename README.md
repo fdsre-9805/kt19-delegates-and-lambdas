@@ -46,3 +46,7 @@ dotnet run --project message_processing
 ## Результат выполнения (вариант 1)
 
 ![Результат выполнения](screenshot.png)
+
+## Результат выполнения (вариант 2)
+
+![Результат выполнения варианта 2](screenshot_message_processing.png)
